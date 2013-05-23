@@ -3,7 +3,7 @@
  <head>
   <meta charset="utf-8">
   <title>Yandex map api testing page</title>
-    <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+    <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
   <!--[if lt IE 9]>      
    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,7 +40,7 @@
             zoom: 16,
         });
 
-       var gopnikiPlacemark = new ymaps.Placemark([59.762806, 60.007595], 
+       gopnikiPlacemark = new ymaps.Placemark([59.762806, 60.007595], 
           { 
           hintContent: 'Парк!', 
           balloonContent: 'Очень опасные пацаны<br /><span class="description">Вероятность получения<br /> по ебалу зашкаливает</span><p style="text-align: center"><img src="gopniki.jpg" /></p>'
@@ -56,10 +56,33 @@
             // её "ножки" (точки привязки).
             iconImageOffset: [-3, -42]
           }
+        ),
 
-        );
 
-        myMap.geoObjects.add(gopnikiPlacemark);
+        // Создаем геообъект с типом геометрии "Точка".
+        zulyaGeoObject = new ymaps.GeoObject({
+            // Описание геометрии.
+            geometry: {
+                type: "Point",
+                coordinates: [59.764588, 60.005323]
+            },
+            // Свойства.
+            properties: {
+                // Контент метки.
+                iconContent: 'Зуля дырявая',
+                balloonContent: 'Раньше был кинотеатр нормальный, а щас эта хуйня'
+            }
+        }, {
+            // Опции.
+            // Иконка метки будет растягиваться под размер ее содержимого.
+            preset: 'twirl#redStretchyIcon',
+            // Метку можно перемещать.
+            draggable: false
+        });
+
+        myMap.geoObjects
+          .add(gopnikiPlacemark)
+          .add(zulyaGeoObject);
 
     }
   </script>    
