@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Yandex map api testing page</title>
+    <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+
+  <!--[if lt IE 9]>      
+   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+   body { margin: 15px; }
+   header {
+    display: block;
+   }
+
+   h1 {margin-bottom: 15px;}
+
+   .description {
+      color: red;
+      font-weight: bold;
+   }
+  </style>
+ </head>
+ <body>
+      <h1>Yandex map</h1>
+       <div id="map" style="width: 600px; height: 400px"></div>
+
+   <script type="text/javascript">
+    ymaps.ready(init);
+    var myMap
+
+    function init(){     
+        myMap = new ymaps.Map ("map", {
+            center: [59.763023, 60.008356],
+            zoom: 16,
+        });
+
+       var gopnikiPlacemark = new ymaps.Placemark([59.762806, 60.007595], 
+          { 
+          hintContent: 'Парк!', 
+          balloonContent: 'Очень опасные пацаны<br /><span class="description">Вероятность получения<br /> по ебалу зашкаливает</span><p style="text-align: center"><img src="gopniki.jpg" /></p>'
+          },
+
+          {
+            // Опции.
+            // Своё изображение иконки метки.
+            iconImageHref: 'custom-icon.png',
+            // Размеры метки.
+            iconImageSize: [16, 16],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-3, -42]
+          }
+
+        );
+
+        myMap.geoObjects.add(gopnikiPlacemark);
+
+    }
+  </script>    
+
+ </body>
+</html>
